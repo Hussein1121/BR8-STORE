@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الدفع</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>إتمام عملية الدفع</h1>
+  
+    <nav>
+      <ul class="nav-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="products.html">المنتجات</a></li>
+          <li><a href="cart.html">عربة التسوق</a></li>
+          <li><a href="checkout.html">الدفع</a></li>
+          <li><a href="account.html">حسابي</a></li>
+          <li><a href="login.html">تسجيل الدخول</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
+          <li><a href="support.html">الدعم</a></li>
+      </ul>
+  </nav>
+
+  </header>
+  <main>
+    <p>يرجى إدخال معرّف ديسكورد لإتمام عملية الشراء.</p>
+    <form id="payment-form">
+      <label for="discord-id">معرّف ديسكورد:</label>
+      <input type="text" id="discord-id" placeholder="مثال: 1234567890" required>
+      <button type="submit" class="btn">إتمام الدفع</button>
+    </form>
+  </main>
+
+  <footer><p>&copy; 2025 BR8 STORE.</p></footer>
+
+  <script>
+    document.getElementById('payment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const discordId = document.getElementById('discord-id').value;
+      if (!discordId) {
+        alert('يرجى إدخال معرّف ديسكورد.');
+        return;
+      }
+
+      // محاكاة إرسال بيانات الشراء إلى Webhook أو API
+      fetch('https://example.com/cfw-api/complete-purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product: 'vip',
+          price: 50,
+          discordId: discordId
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert('تم إرسال الطلب بنجاح، سيتم تفعيل المنتج قريباً.');
+      })
+      .catch(err => {
+        alert('حدث خطأ أثناء تنفيذ العملية');
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
