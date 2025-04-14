@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سلة المشتريات - BR8 STORE</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="assest/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+        <h1 class="logo"><img src="image/myLogo3 (1).png" alt="BR8 STORE Logo" width="50" height="50"> BR8 STORE</h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="products.html"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
+                <li><a href="rules.html"><i class="fas fa-gavel"></i> قوانين السيرفر</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> حول المتجر</a></li>
+                <li><a href="contactUs.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                <li><a href="privacy.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+  <main class="container" style="padding: 2rem 0; min-height: 60vh;">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">سلة المشتريات</h1>
+    
+    <div style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>اسم المنتج</th>
+            <th>السعر</th>
+            <th>العدد</th>
+            <th>الإجمالي</th>
+            <th>إزالة</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <!-- سيتم تعبئته تلقائيًا -->
+          <tr>
+            <td colspan="5" style="text-align: center; padding: 2rem;">سلة المشتريات فارغة</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+      <h3 id="total-price">الإجمالي: 0 ريال</h3>
+      
+      <div style="display: flex; gap: 1rem;">
+        <button onclick="clearCart()" class="btn" style="background-color: var(--danger-color);">
+          <i class="fas fa-trash"></i> تفريغ السلة
+        </button>
+        <button onclick="checkout()" class="btn" style="background-color: var(--success-color);">
+          <i class="fas fa-credit-card"></i> إتمام الشراء
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 BR8 STORE. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/cart.js"></script>
+  <script>
+    // وظائف عربة التسوق
+    function updateCartDisplay() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartBody = document.getElementById('cart-body');
+      const totalPriceElement = document.getElementById('total-price');
+      
+      if (cart.length === 0) {
+        cartBody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; padding: 2rem;">سلة المشتريات فارغة</td>
+          </tr>
+        `;
+        totalPriceElement.textContent = 'الإجمالي: 0 ريال';
+        return;
+      }
+      
+      let total = 0;
+      cartBody.innerHTML = '';
+      
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.price} ريال</td>
+          <td>
+            <input type="number" min="1" value="${item.quantity}" 
+                   onchange="updateQuantity(${item.id}, this.value)" 
+                   style="width: 60px; padding: 0.3rem; text-align: center;">
+          </td>
+          <td>${itemTotal} ريال</td>
+          <td>
+            <i class="fas fa-times remove-item" onclick="removeItem(${item.id})"></i>
+          </td>
+        `;
+        cartBody.appendChild(row);
+      });
+      
+      totalPriceElement.textContent = `الإجمالي: ${total} ريال`;
+    }
+    
+    function updateQuantity(productId, newQuantity) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const itemIndex = cart.findIndex(item => item.id === productId);
+      
+      if (itemIndex !== -1) {
+        cart[itemIndex].quantity = parseInt(newQuantity);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+      }
+    }
+    
+    function removeItem(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== productId);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartDisplay();
+    }
+    
+    function clearCart() {
+      localStorage.removeItem('cart');
+      updateCartDisplay();
+      alert('تم تفريغ سلة المشتريات بنجاح');
+    }
+    
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('سلة المشتريات فارغة');
+        return;
+      }
+      
+      // هنا يمكنك إضافة منطق إتمام الشراء
+      alert('سيتم توجيهك إلى صفحة الدفع');
+    }
+    
+    // تحديث عرض السلة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', updateCartDisplay);
+  </script>
+</body>
+</html>

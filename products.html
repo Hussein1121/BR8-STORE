@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنتجات - BR8 STORE</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="assest/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo"><img src="image/myLogo3 (1).png" alt="BR8 STORE Logo" width="50" height="50"> BR8 STORE</h1>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+          <li><a href="rules.html"><i class="fas fa-gavel"></i> قوانين السيرفر</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> حول المتجر</a></li>
+          <li><a href="contactUs.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+          <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+          <li><a href="privacy.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding: 2rem 0;">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">المنتجات المتوفرة</h1>
+
+    <div class="product-list">
+      <!-- سيتم تعبئة المنتجات ديناميكيًا -->
+      <div class="no-products" style="grid-column: 1 / -1; text-align: center; padding: 3rem; background-color: var(--text-light); border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+        <i class="fas fa-box-open fa-4x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
+        <h3>لا يوجد منتجات حالياً</h3>
+        <p>سنقوم بإضافة المنتجات قريباً</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 BR8 STORE. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const products = [
+        {
+          id: 1,
+          name: "رتبة VIP",
+          price: 100,
+          description: "احصل على مميزات حصرية داخل السيرفر",
+          image: "image/vip.png"
+        },
+        {
+          id: 2,
+          name: "مركبة حصرية",
+          price: 200,
+          description: "مركبة فريدة من نوعها داخل السيرفر",
+          image: "image/car.png"
+        },
+        {
+          id: 3,
+          name: "منزل فاخر",
+          price: 300,
+          description: "منزل مع مميزات إضافية",
+          image: "image/house.png"
+        }
+      ];
+
+      const productGrid = document.querySelector('.product-grid');
+      
+      if (products.length > 0) {
+        productGrid.innerHTML = '';
+      }
+
+      products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card fade-in';
+        productCard.innerHTML = `
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+              <span class="product-price">${product.price} ريال</span>
+              <button class="add-to-cart" data-id="${product.id}">
+                <i class="fas fa-cart-plus"></i> إضافة للسلة
+              </button>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(productCard);
+      });
+
+      // إضافة تأثير الظهور عند التمرير
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      const fadeInOnScroll = () => {
+        fadeElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (elementTop < windowHeight - 100) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }
+        });
+      };
+      
+      // تعيين الحالة الأولية
+      fadeElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      });
+      
+      // التحقق عند التمرير
+      window.addEventListener('scroll', fadeInOnScroll);
+      fadeInOnScroll(); // التحقق عند التحميل
+    });
+  </script>
+</body>
+</html>

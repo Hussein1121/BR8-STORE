@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>اتصل بنا</title>
+  <link rel="stylesheet" href="assest/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+        <h1 class="logo"><img src="image/myLogo3 (1).png" alt="BR8 STORE Logo" width="50" height="50"> BR8 STORE</h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="products.html"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
+                <li><a href="rules.html"><i class="fas fa-gavel"></i> قوانين السيرفر</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> حول المتجر</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+                <li><a href="privacy.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+  <form id="contactForm">
+    <input type="text" id="name" placeholder=" اسمك في الديسكورد"required>
+    <textarea id="message" placeholder="اكتب رسالتك" required></textarea>
+    <button type="submit" class="submit">إرسال</button>
+  </form>
+
+  <p id="responseMessage"></p>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      const webhookURL = "https://discord.com/api/webhooks/1360528478684053636/_PuFJRh1oT4LbY_a0_cOiDcP0oE2qC7GZbBf4qGdmwb-QBnzILjib3ORtydj3qd9stcW"; // ← استبدل هذا بالرابط الحقيقي
+
+      const payload = {
+        content: `📩 رسالة جديدة:\n👤 الاسم: ${name}\n📝 الرسالة: ${message} \n \n \n @💵 𝐂𝐨𝐦𝐩𝐞𝐧𝐬𝐚𝐭𝐢𝐨𝐧 𝐓𝐞𝐚𝐦 `
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("responseMessage").textContent = "✅ تم إرسال الرسالة بنجاح!";
+        } else {
+          document.getElementById("responseMessage").textContent = "❌ فشل في الإرسال.";
+        }
+      })
+      .catch(err => {
+        document.getElementById("responseMessage").textContent = "⚠️ خطأ: لم يتم الإرسال.";
+        console.error("Webhook Error:", err);
+      });
+    });
+  </script>
+</body>
+</html>

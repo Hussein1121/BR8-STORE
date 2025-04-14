@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR8 STORE - الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="assest/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><img src="image/myLogo3 (1).png" alt="BR8 STORE Logo" width="50" height="50"> BR8 STORE</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="products.html"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
+                    <li><a href="rules.html"><i class="fas fa-gavel"></i>  قوانين السيرفر</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> حول المتجر</a></li>
+                    <li><a href="contactUs.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2 class="fade-in">أهلاً بك في متجر BR8</h2>
+            <p class="fade-in">كل ما تحتاجه من أغراض لسيرفر CFW - حياة واقعية فايف إم</p>
+            <a href="products.html" class="btn fade-in">تصفح المنتجات</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature fade-in">
+                <i class="fas fa-star fa-3x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>منتجات حصرية</h3>
+                <p>نوفر لك أفضل الأغراض بأسعار منافسة داخل السيرفر.</p>
+            </div>
+            <div class="feature fade-in">
+                <i class="fas fa-shield-alt fa-3x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>دفع آمن</h3>
+                <p>طرق الدفع باستخدام:</p>
+                <ul>
+                    <li>التحويل البنكي 🏦</li>
+                    <li>STC PAY <img src="image/شعار اس تي سي باي STC PAY LOGO  – SVG.svg" width="50" height="50"></li>
+                </ul>
+            </div>
+            <div class="feature fade-in">
+                <i class="fas fa-headset fa-3x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>دعم فوري</h3>
+                <p>نحن هنا لخدمتك داخل ديسكورد على مدار الساعة.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links" style="margin-bottom: 1rem;">
+                <a href="https://discord.gg/haA6Rmv4Fa" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-discord"></i></a>
+            </div>
+            <p>&copy; 2025 BR8 STORE - جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add fade-in effect when scrolling
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+            fadeInOnScroll(); // Check on load
+        });
+    </script>
+</body>
+</html>

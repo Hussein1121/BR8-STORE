@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إضافة منتج - BR8 STORE</title>
+  <link rel="stylesheet" href="assest/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><img src="image/myLogo3 (1).png" alt="BR8 STORE Logo" width="50" height="50"> BR8 STORE</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="products.html"><i class="fas fa-shopping-bag"></i> المنتجات</a></li>
+                    <li><a href="rules.html"><i class="fas fa-gavel"></i> قوانين السيرفر</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> حول المتجر</a></li>
+                    <li><a href="contactUs.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container fade-in">
+        <h2><i class="fas fa-plus-circle" style="margin-left: 10px;"></i> إضافة منتج جديد</h2>
+
+        <form id="add-product-form" style="max-width: 600px; margin: 0 auto; padding: 2rem; background: rgba(106, 0, 255, 0.1); border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+            <label for="product-name">اسم المنتج:</label>
+            <input type="text" id="product-name" name="product-name" required style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);">
+
+            <label for="product-price">السعر:</label>
+            <input type="number" id="product-price" name="product-price" required style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);">
+
+            <label for="product-description">الوصف:</label>
+            <textarea id="product-description" name="product-description" required style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);"></textarea>
+
+            <label for="product-image">رابط الصورة:</label>
+            <input type="url" id="product-image" name="product-image" style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);">
+
+            <button type="submit" style="width: 100%; padding: 0.8rem; background-color: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); font-size: 1.2rem;">إضافة المنتج</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BR8 STORE. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="manager.js"></script>
+    <script>
+        // إضافة تأثير الظهور عند التمرير
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // تعيين تأثير الظهور عند التمرير
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(50px)';
+                element.style.transition = 'all 0.6s ease-out';
+            });
+
+            // استدعاء الدالة عند التمرير
+            window.addEventListener('scroll', fadeInOnScroll);
+
+            // تنفيذ الدالة عند تحميل الصفحة مباشرة
+            fadeInOnScroll();
+        });
+    </script>
+</body>
+</html>
